@@ -38,8 +38,9 @@ Faculty | Dashboard
         <div class="student_name">
             Student Name : {{ submissions.Student_Id.First_Name}} {{submissions.Student_Id.Last_Name}}
         </div>
+        
         <div class="content">
-            Content : {{submissions.Content}}
+            Content : <a href='{{submissions.Content}}'>Click here</a>
         </div>
         <div class="time">
             Submission Time : {{submissions.Timestamp}}

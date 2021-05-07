@@ -4,7 +4,7 @@ from guest.models import Course,Faculty,Faculty_Course, Student,Task,Submission,
 from guest.models import Student_Course,Comment
 from django.db.models import Subquery
 from django.utils import timezone
-
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -60,7 +60,7 @@ def faculty_course(request,course_id):
 def tasks(request,course_id):
     tasks=(Task.objects.filter(Course_Id=course_id))
     course=Course.objects.get(Id=course_id)
-    print(tasks)
+    #print(tasks)
     context={
         'tasks':tasks,
         'course':course
@@ -85,7 +85,7 @@ def addresource(request,course_id):
     }
     return render(request,'Resource_details.html',context=context)
 
-
+@csrf_exempt
 def newtask(request,course_id):
     if request.method == "POST":
         course=Course.objects.get(Id=course_id)
@@ -96,16 +96,21 @@ def newtask(request,course_id):
         Deadline = request.POST.get("deadline")
         peer_mode = request.POST.get('peer_mode')
         peer_mode = True if peer_mode else False
-        Pre_task_id = Task.objects.values_list('Id',flat = True).last()
-        num = Pre_task_id[1]
-        Task_Id = ("T"+str(int(num)+1))
-        #print("\n\nTitle: ",Task_Id)
+        Pre_task_id = Task.objects.all().order_by("-Added_date")
+        print(len(Pre_task_id))
+        if(len(Pre_task_id) ==0):
+            Task_Id = "T1"
+        else:
+            Pre_task_id = Pre_task_id[0].Id
+            num = Pre_task_id[1:]
+            Task_Id = ("T"+str(int(num)+1))
+            print("\n\nTitle: ",Task_Id)
         record = Task(Id=Task_Id,Faculty_Id=faculty,Course_Id=course,Title=title,Content=content,Deadline=Deadline,peer_mode=peer_mode)
         record.save()
-        # context={
-        #     'message':'Added Successfully',
-        #     'course_id':course_id
-        # }
+        context={
+            'message':'Added Successfully',
+            'course_id':course_id
+        }
         return redirect('tasks', course_id=course_id)
 
 def Updatetask(request,course_id,task_id):
@@ -120,6 +125,7 @@ def Updatetask(request,course_id,task_id):
     }
     return render(request,'Task_details.html',context=context)
 
+@csrf_exempt
 def UpdatetaskAfter(request,course_id,task_id):
     if request.method == "POST":
         course=Course.objects.get(Id=course_id)
@@ -138,6 +144,7 @@ def UpdatetaskAfter(request,course_id,task_id):
         task.save()
         return redirect('tasks',course_id=course_id)
 
+@csrf_exempt
 def newresource(request,course_id):
     if request.method == "POST":
         course=Course.objects.get(Id=course_id)
@@ -145,11 +152,15 @@ def newresource(request,course_id):
         faculty = Faculty.objects.get(Id=faculty_id)
         title = request.POST.get("ResourceName")
         content = request.POST.get("resource_desc")
-        Pre_resource_id = Resource.objects.values_list('Id',flat = True).last()
-        num = Pre_resource_id[1]
-        Resource_id = ("R"+str(int(num)+1))
-        #print("\n\nTitle: ",Task_Id)
-        print(Resource_id,faculty,course,title,content)
+        Pre_resource_id = Resource.objects.all().order_by("-Added_date")
+        if(len(Pre_resource_id) ==0):
+            Resource_id = "R1"
+        else:
+            Pre_resource_id = Pre_resource_id[0].Id
+            num = Pre_resource_id[1:]
+            Resource_id = ("R"+str(int(num)+1))
+            #print("\n\nTitle: ",Task_Id)
+            #print(Resource_id,faculty,course,title,content)
         record = Resource(Id=Resource_id,Faculty_Id=faculty,Course_Id=course,Timestamp=timezone.now(),Title=title,Content=content)
         record.save()
         
@@ -203,6 +214,7 @@ def UpdateResources(request,course_id,resource_id):
     }
     return render(request,'Resource_details.html',context=context)
 
+@csrf_exempt
 def UpdateResourcesAfter(request,course_id,resource_id):
     if request.method == "POST":
         title = request.POST.get("ResourceName")
@@ -226,6 +238,7 @@ def GradeSubmission(request,course_id,task_id,submission_id):
     }
     return render(request,'Grade_Submission.html',context=context)
 
+@csrf_exempt
 def UpdateGrade(request,course_id,task_id,submission_id):
     if request.method == "POST":
         s = Submission.objects.get(id=submission_id)

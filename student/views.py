@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from guest.models import Faculty_Course,Faculty_Feedback,Faculty,Student,Course,Course_Feedback,Task,Submission,Comment
 from django.utils import timezone
 from . import views
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def facultyfeedback(request,course_id):
@@ -32,6 +33,7 @@ def facultyfeedback(request,course_id):
     }
     return render(request,'faculty_feedback.html',context=context)
 
+@csrf_exempt
 def submitfacultyfeedback(request,faculty_id,course_id):
     if request.method == "POST":
         rating = request.POST.get("rating")
@@ -57,6 +59,7 @@ def coursefeedback(request,course_id):
     }
     return render(request,'course_feedback.html',context=context)
 
+@csrf_exempt
 def submitcoursefeedback(request,course_id):
     if request.method == "POST":
         rating = request.POST.get("rating")
@@ -99,6 +102,7 @@ def submitsubmission(request,course_id,task_id):
         record.save()
         return redirect('addsubmission',course_id,task_id)
 
+@csrf_exempt
 def addcomment(request,course_id,task_id,submission_id):
     if request.method == "POST":
         s = Submission.objects.get(id=submission_id)

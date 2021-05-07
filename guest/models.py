@@ -128,6 +128,7 @@ class Resource(models.Model):
     Timestamp = models.DateTimeField(null=False)
     Title = models.CharField(max_length=1000,blank=True)
     Content = models.CharField(max_length=10000)
+    Added_date = models.DateTimeField(null=True,auto_now_add=True)
 
 class Task(models.Model):
     Id = models.CharField(max_length=6, primary_key=True)
@@ -137,6 +138,7 @@ class Task(models.Model):
     Content = models.CharField(max_length=2000)
     Deadline = models.DateTimeField(null=False)
     peer_mode = models.BooleanField(default=False)
+    Added_date = models.DateTimeField(null=True,auto_now_add=True)
 
 class Q_and_A_University_Wide(models.Model):
     Question_Id = models.IntegerField(max_length=6, unique=False)

@@ -65,7 +65,7 @@ def Logout(request):
     return redirect('home_page')
 
 def school(request, s_name):
-    chemical = ['Org', 'Norg']
+    chemical = ['Org', 'ML']
     mechanical = ['FM', 'TH']
     computer = ['DSP', 'ML']
     school = School.objects.get(Id="SC1")

@@ -11,9 +11,8 @@
   max-width: 200px;
 }
 
-.navbar-brand,
-.cover {
-  padding: 0 !important;
+.navbar-brand{
+  padding-left: 30px !important;
   margin: 0 !important;
 }
 
