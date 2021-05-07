@@ -1,0 +1,28 @@
+.row {
+  max-width: 98vw;
+  min-height: 90vh;
+}
+.col-sm {
+  position: relative;
+}
+.home_img_con {
+  position: absolute;
+  bottom: 15%;
+}
+.home_img_con > img {
+  min-width: 50vw;
+}
+.col-right {
+  margin-top: 8vh;
+  padding-right: 40px;
+}
+.form_con {
+  padding: 30px;
+  border-radius: 20px;
+  padding-bottom: 10vh;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+}
+.login__text {
+  font-size: 35px;
+}

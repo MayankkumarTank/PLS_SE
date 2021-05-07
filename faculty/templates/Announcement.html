@@ -1,0 +1,56 @@
+{% extends 'faculty/templates/start_base.html' %}
+{% load static %}
+{% block title %}
+Faculty | Dashboard
+{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/Announcement.css' %}">
+{% endblock extra_css %}
+{% block extrajs %}
+    $(".active").removeClass("active");
+    $(".announcement").addClass("active");     
+{% endblock extrajs %}
+
+{% block body %}
+<div class="Announcement_con">
+    <div class="Announcement_name">
+        Welcome to Announcement Section !!
+    </div>
+    <div class="Announcement_con">
+        <div class="Announcement_txt">
+            Latest Announcement
+        </div>
+        <hr />
+        <div class="question_list">
+            {% for announcement in announcements %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ announcement.Content }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ announcement.User_Id }}</h6>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- <div class="Announcement_add_con ">
+        {% if user_faculty %}
+        <form action="{% url 'home_page' %}" method="POST">
+                {% csrf_token %}
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <input type="text" name="ans" id="ans" placeholder="Enter the Announcement" class="form-control"
+                            aria-describedby="passwordHelpInline">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-outline-secondary ">
+                            Announce
+                        </button>
+                    </div>
+                </div>
+            </form>
+        {% endif %}
+    </div> -->
+</div>
+
+{% endblock body %}

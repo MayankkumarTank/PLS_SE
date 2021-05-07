@@ -1,0 +1,29 @@
+.faculty_feedback_name{
+    text-align: center;
+    font-size: 25px;
+    background: #669999;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    color: white;
+    border-radius: 10px;
+}
+
+.faculty_feedback_con {
+    margin-top: 20px;
+}
+
+.feedback_con {
+    margin-top: 20px;
+}
+
+.feedback_form{
+    margin-bottom: 20px;
+    padding : 20px;
+    background-color:#f7f7f7;
+}
+
+.Prof_name {
+    font-size: 20px;
+    text-align: center;
+}

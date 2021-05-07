@@ -1,0 +1,31 @@
+.hero-card {
+  text-align: center;
+  margin-top: 0vh;
+  margin-bottom: 5vh;
+  background: #f7f7f7;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.hero-card h1 {
+  margin-bottom: 10px;
+}
+
+.hero-card p {
+  font-weight: normal;
+}
+
+.outer-card button {
+  color: black;
+}
+.outer-card button:hover {
+  color: teal;
+}
+
+.inner-card {
+  margin-bottom: 1rem;
+}
+
+.inner-card h5 {
+  font-size: larger;
+}

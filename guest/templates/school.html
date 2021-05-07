@@ -1,0 +1,59 @@
+{% extends 'guest/templates/base.html' %}
+{% load static %}
+{% block title %}
+{{ school }}
+{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/school.css' %}">
+{% endblock extra_css %}
+
+{% block body %}
+<div class="hero-card" data-aos="zoom-in">
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">{{ school }}</h1>
+      <p class="lead">{{ description }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="section-1" style="width: 80%;position: relative;left:10%; margin-bottom:2rem;">
+  <div id="accordion">
+
+    {% for program,courses in programs.items %}
+
+    <div class="card outer-card" data-aos="fade-down">
+      <div class="card-header" id="heading{{forloop.counter0}}">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{forloop.counter0}}"
+            aria-expanded="true" aria-controls="collapse{{forloop.counter0}}">
+            {{ program }}
+          </button>
+        </h5>
+      </div>
+
+      <div id="collapse{{forloop.counter0}}" class="collapse" aria-labelledby="heading{{forloop.counter0}}"
+        data-parent="#accordion">
+        <div class="card-body">
+
+          {% for course in courses %}
+          <div class="card inner-card" style="width: 100%">
+            <div class="card-body">
+              <h5 class="card-title">{{ course }}</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              {# You need to give {{course}} to course_page url in bellow line #}
+              <a href="{% url 'course_page' '{{course}}' %}" class="card-link">Open Outline</a>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+{% endblock body %}

@@ -1,0 +1,85 @@
+{% extends 'faculty/templates/start_base.html' %}
+{% load static %}
+{% block title %}
+Faculty | Dashboard
+{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/QnA.css' %}">
+{% endblock extra_css %}
+
+{% block nav_link %}
+{% if course.Id %}
+<li class="nav-item">
+    <a class="nav-link qnacourse" href="{% url 'QNACourse' course.Id %}">Q&A Course</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link task" href="{% url 'tasks' course.Id %}">Tasks</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link resource" href="{% url 'resources' course.Id %}">Resources</a>
+</li>
+{% endif %}
+{% endblock nav_link %}
+
+{% block extrajs %}
+    {% if course.Id %}
+    $(".active").removeClass("active");
+    $(".qnacourse").addClass("active"); 
+    {% else %}
+    $(".active").removeClass("active");
+    $(".qnauni").addClass("active");
+    {% endif %}
+{% endblock extrajs %}
+
+{% block body %}
+<div class="QnA_con">
+    <div class="QnA_name">
+        Welcome to Q&A. ask your question here!!
+    </div>
+    <div class="question_con">
+        <div class="question_txt">
+            Latest Questions
+        </div>
+        <hr />
+        <div class="question_list">
+            {% for question in questions %}
+            <div class="card question_card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ question.Content }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ question.User_Id }}</h6>
+                    {% if type == "university" %}
+                    <a href="{% url 'Question_university' question.Question_Id  %}" class="card-link">View</a>
+                    {% else %}
+                    <a href="{% url 'Question_course' course.Id question.Question_Id  %}" class="card-link">View</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="question_ask_con ">
+
+        {% if type == "university" %}
+        <form action="{% url 'AskQuestion_uni' %}" method="POST">
+            {% else %}
+            <form action="{% url 'AskQuestion_course' course.Id %}" method="POST">
+                {% endif %}
+
+                {% csrf_token %}
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <input type="text" name="ans" id="ans" placeholder="Ask the question" class="form-control"
+                            aria-describedby="passwordHelpInline">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-outline-secondary ">
+                            Ask
+                        </button>
+                    </div>
+                </div>
+            </form>
+    </div>
+</div>
+
+{% endblock body %}

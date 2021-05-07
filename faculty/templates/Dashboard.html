@@ -1,0 +1,44 @@
+{% extends 'faculty/templates/start_base.html' %}
+{% load static %}
+{% block title %}
+Faculty | Dashboard
+{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock extra_css %}
+
+{% block extrajs %}
+    $(".active").removeClass("active");
+    $(".dashboard").addClass("active");     
+{% endblock extrajs %}
+
+{% block body %}
+<div class="facutly_con">
+    <div class="facutly_name">
+        Welcome {% if request.session.faculty %} prof. {% endif %} <span> {{ request.session.Name }} </span>
+    </div>
+    <div class="course_con">
+        <div class="course_txt">
+            My Courses
+        </div>
+        <hr />
+        <div class="courses row row-cols-3">
+            {% for course in courses %}
+            <a class="card" href="{% url 'course' course.Id %}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ course.Name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        Semester:{{ course.Semester }} |
+                        School : {{ course.School_Id.Name }}
+                    </h6>
+
+                    <p class="card-text">Description: {{ course.Discription |slice:":60"| safe }}...</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+{% endblock body %}

@@ -1,0 +1,60 @@
+{% extends 'faculty/templates/start_base.html' %}
+{% load static %}
+{% block title %}
+Faculty | Dashboard
+{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/tasks.css' %}">
+{% endblock extra_css %}
+
+{% block nav_link %}
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'QNACourse' course.Id %}">Q&A Course</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link task" href="{% url 'tasks' course.Id %}">Tasks</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'resources' course.Id %}">Resources</a>
+</li>
+{% endblock nav_link %}
+
+{% block extrajs %}
+    $(".active").removeClass("active");
+    $(".task").addClass("active");     
+{% endblock extrajs %}
+
+{% block body %}
+<div class="tasks_con">
+    <div class="course_name">
+        {{ course.Id }}: {{ course.Name }}
+    </div>
+    <div class=" task_text_con">
+        <div class="task_txt">
+            Course Tasks
+        </div>
+        <hr />
+        {% if request.session.faculty %}
+        <div class="course_add_task">
+            <div class="add_task d-flex justify-content-center">
+                <a href="{% url 'addtask' course.Id %}" class="btn btn-outline-secondary btn-lg ">Add Task</a>
+            </div>
+        </div>
+        <div class="task_txt">
+            Uploaded Tasks
+        </div>
+        <hr />
+        {% endif %}
+        <div class="all_tasks row row-cols-2">
+            {% for task in tasks %}
+            <a class="card" href="{% url 'ViewTask' course.Id task.Id %}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ task.Title }}</h5>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock body %}

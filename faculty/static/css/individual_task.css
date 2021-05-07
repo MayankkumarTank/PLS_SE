@@ -1,0 +1,54 @@
+.course_name {
+  text-align: center;
+  font-size: 25px;
+  background: #669999;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  color: white;
+  border-radius: 10px;
+}
+.task_txt,
+.task_add_txt {
+  padding-top: 30px;
+  font-size: 30px;
+  line-height: 10px;
+}
+
+.task_text_con {
+  margin: 20px;
+  background-color: #f7f7f7;
+  padding:20px;
+  border-radius: 15px;
+}
+.view_submission {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+}
+.view_submission > span {
+  margin-right: 10px;
+}
+
+.all_submission {
+  padding: 20px;
+  display: none;
+}
+
+.card {
+  max-width: 100% !important;
+  text-decoration: none !important;
+  color: black;
+  transition: all 0.2s ease-in;
+  margin-right: 10px;
+  text-align: Left;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.Grade {
+  position: absolute;
+  right: 10px;
+  top: 30%;
+}

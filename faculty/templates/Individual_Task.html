@@ -1,0 +1,107 @@
+{% extends 'faculty/templates/start_base.html' %}
+{% load static %}
+{% block title %}
+Faculty | Dashboard
+{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/individual_task.css' %}">
+{% endblock extra_css %}
+
+{% block nav_link %}
+<li class="nav-item">
+    <a class="nav-link qnacourse" href="{% url 'QNACourse' course.Id %}">Q&A Course</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link task" href="{% url 'tasks' course.Id %}">Tasks</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link resource" href="{% url 'resources' course.Id %}">Resources</a>
+</li>
+{% endblock nav_link %}
+
+{% block extrajs %}
+    $(".active").removeClass("active");
+    $(".task").addClass("active");     
+{% endblock extrajs %}
+
+{% block body %}
+<div class="tasks_con">
+    <div class="course_name">
+        {{ course.Id }}: {{ course.Name }}
+    </div>
+    <div class="task_text_con">
+        <div class="task_txt">
+            {{task.Title}}
+        </div>
+        <hr />
+        <div class="task_desc">
+            {{task.Content}}
+        </div>
+    </div>
+    <div class="view_submission row-col-3">
+        {% if request.session.faculty or task.peer_mode %}
+        <span class="view_sub ">
+            <a class="btn btn-outline-success btn-lg" id="Submission_btn" onclick="view_submission_click()">View
+                Submissions
+            </a>
+        </span>
+        {% endif %}
+        {% if request.session.student %}
+        <span class="add_submission ">
+            <a class="btn btn-outline-success btn-lg" id="add_submission_btn"
+                href="{% url 'addsubmission' course.Id  task.Id %}">
+                Add Submission
+            </a>
+        </span>
+        {% endif %}
+        {% if request.session.faculty %}
+        <span class="update_task ">
+            <a class="btn btn-outline-warning btn-lg" id="update_task_btn"
+                href="{% url 'Updatetask' course.Id  task.Id %}">
+                Update Task
+            </a>
+        </span>
+        <span class="delete_task ">
+            <a class="btn btn-outline-danger btn-lg" id="delete_task_btn"
+                href="{% url 'DeleteTask' course.Id  task.Id %}">
+                Delete Task
+            </a>
+        </span>
+        {% endif %}
+    </div>
+    <div class="all_submission row row-cols-1" id="submissions">
+    {% for submission in submissions %}
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{submission.Student_Id.Id}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{ submission.Student_Id.First_Name}} {{submission.Student_Id.Last_Name}}</h6>
+          <a href="{% url 'GradeSubmission' course.Id task.Id submission.id %}" class="card-link">View Submission</a>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+    <script>
+        function view_submission_click() {
+            let btn = document.getElementById("Submission_btn");
+            let sub_div = document.getElementById("submissions");
+            console.log(btn);
+            console.log(sub_div);
+            if (btn.style.display != 'none') {
+                if (btn.innerHTML == "Hide Submissions") {
+                    btn.innerHTML = "View Submissions";
+                    sub_div.style.display = 'none';
+                }
+                else {
+                    btn.innerHTML = "Hide Submissions";
+                    sub_div.style.display = 'block';
+                }
+            }
+            else {
+                btn.style.display = 'block';
+                sub_div.style.display = 'none';
+            }
+        }
+    </script>
+</div>
+{% endblock body %}

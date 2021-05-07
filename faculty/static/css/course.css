@@ -1,0 +1,47 @@
+.course_name {
+  text-align: center;
+  font-size: 25px;
+  background: #669999;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  color: white;
+  border-radius: 10px;
+}
+
+.course_txt,
+.course_activity_txt {
+  padding-top: 30px;
+  font-size: 30px;
+  line-height: 10px;
+}
+.course_activity_txt {
+  margin-top: 20px;
+}
+.courses_desc {
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+.activity__button {
+  padding: 10px;
+  margin-right: 10px;
+  margin: auto 0%;
+}
+.card {
+  max-width: 25vw !important;
+  text-decoration: none !important;
+  color: black;
+  transition: all 0.2s ease-in;
+  margin-right: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.card:hover {
+  color: black;
+  transform: scale(1.03);
+  background: #669999;
+  color: white;
+}

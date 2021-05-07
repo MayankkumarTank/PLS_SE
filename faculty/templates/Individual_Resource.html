@@ -1,0 +1,59 @@
+{% extends 'faculty/templates/start_base.html' %}
+{% load static %}
+{% block title %}
+Faculty | Dashboard
+{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/individual_resources.css' %}">
+{% endblock extra_css %}
+
+{% block nav_link %}
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'QNACourse' course.Id %}">Q&A Course</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'tasks' course.Id %}">Tasks</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link resource" href="{% url 'resources' course.Id %}">Resources</a>
+</li>
+{% endblock nav_link %}
+
+{% block extrajs %}
+    $(".active").removeClass("active");
+    $(".resource").addClass("active");     
+{% endblock extrajs %}
+
+{% block body %}
+<div class="tasks_con">
+    <div class="course_name">
+        {{ course.Id }}: {{ course.Name }}
+    </div>
+    <div class="resource_text_con">
+        <div class="resource_txt">
+            {{resource.Title}}
+        </div>
+        <hr />
+        <div class="resource_desc">
+            {{resource.Content}}
+        </div>
+    </div>
+    {% if request.session.faculty %}
+    <div class="view_submission row-col-3">
+        <span class="update_resource ">
+            <a class="btn btn-outline-warning btn-lg" id="update_resource_btn"
+                href="{% url 'UpdateResources' course.Id resource.Id %}">
+                Update Resource
+            </a>
+        </span>
+        <span class="delete_resource ">
+            <a class="btn btn-outline-danger btn-lg" id="delete_resource_btn"
+                href="{% url 'DeleteResources' course.Id resource.Id %}">
+                Delete Resource
+            </a>
+        </span>
+    </div>
+    {% endif %}
+</div>
+{% endblock body %}

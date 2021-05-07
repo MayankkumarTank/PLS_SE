@@ -1,0 +1,55 @@
+{% extends 'faculty/templates/start_base.html' %}
+{% load static %}
+{% block title %}
+Faculty | Dashboard
+{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/Profile.css' %}">
+{% endblock extra_css %}
+
+{% block nav_link %}
+{% if course.Id %}
+<li class="nav-item">
+    <a class="nav-link qnacourse" href="{% url 'QNACourse' course.Id %}">Q&A Course</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link task" href="{% url 'tasks' course.Id %}">Tasks</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link resource" href="{% url 'resources' course.Id %}">Resources</a>
+</li>
+{% endif %}
+{% endblock nav_link %}
+
+{% block extrajs %}
+    $(".active").removeClass("active");
+    $(".profile").addClass("active"); 
+{% endblock extrajs %}
+
+{% block body %}
+<div class="profile_con">
+    <div class="my_profile">
+        My Profile
+    </div>
+    <div class="profile_data_con">
+        {% if request.session.student %}
+        <p>Name : {{ record.First_Name }} {{ record.Middle_Name }} {{ record.Last_Name }}</p>
+        <p>Email Id : {{ record.Email_Id}}</p>
+        <p>Enrollment No : {{ record.Enrollment_No}}</p>
+        <p>Gender : {% if record.Gender == 0 %} Male {% elif record.Gender == 1 %} Female {% else %} Not specified {% endif %}</p>
+        <p>Admission Year : {{record.Admission_Year}}</p>
+        <p>Contact No : {{record.Contact_No}}</p>
+        <p>Programme : {{ record.Programme_Id.Name }} {{record.Major_Id.Name}}</p>
+        {% elif request.session.faculty %}
+        <p>Name : {{ record.First_Name }} {{ record.Middle_Name }} {{ record.Last_Name }}</p>
+        <p>Email Id : {{ record.Email_Id}}</p>
+        <p>Years_Of_Experience : {{ record.Years_Of_Experience}}</p>
+        <p>Joining_Date : {{record.Joining_Date}}</p>
+        <p>Designation : {{record.Designation}}</p>
+        <p>Contact No : {{record.Contact_No}}</p>
+        <p>Academic_Qualification : {{ record.Academic_Qualification}}</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock body %}

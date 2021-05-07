@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nixie+One&display=swap");
+.row {
+  max-width: 98vw;
+  padding-top: 5vh;
+}
+
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  font-family: "Roboto", sans-serif;
+  font-size: larger;
+  /* padding-left: 9rem; */
+}
+
+.pls_name {
+  font-weight: bolder;
+  color: #f35456;
+}
+.col-left {
+  margin-left: 60px;
+}
+.home__text {
+  font-size: 25px;
+}
+.home__title {
+  font-size: 80px;
+  line-height: 70px;
+  font-family: "Nixie One", cursive;
+  padding-right: 20%;
+  color: black;
+}
+.P {
+  font-weight: bold;
+  color: #f35456;
+}
+.L {
+  font-weight: bold;
+  color: #737373;
+}
+.S {
+  font-weight: bold;
+  color: #34989e;
+}
+.hero-left h2 {
+  color: teal;
+}
+.home_text_con {
+  color: gray;
+}
+.gutter-0 {
+  padding-right: 0;
+  padding-left: 0;
+}
+.img-home {
+  max-width: 60vw;
+}
+
+.col-right {
+  min-width: 50vw;
+  text-align: center;
+}

@@ -1,0 +1,64 @@
+{% extends 'faculty/templates/start_base.html' %}
+{% load static %}
+{% block title %}
+Faculty | Dashboard
+{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/course_feedback.css' %}">
+{% endblock extra_css %}
+
+{% block nav_link %}
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'QNACourse' course.Id %}">Q&A Course</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'tasks' course.Id %}">Tasks</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'resources' course.Id %}">Resources</a>
+</li>
+{% endblock nav_link %}
+
+{% block body %}
+<div class="course_feedback_con">
+    <div class="course_feedback_name">
+        Welcome to Course Feedback.
+    </div>
+    <div class="feedback_con">
+        <form action="{% url 'submitcoursefeedback' course.Id %}" method="POST" class="feedback_form">
+                {% csrf_token %}
+                {% if status %}
+                <fieldset disabled="disabled">
+                {% endif %}
+                <div class="course_name">
+                Course Name : {{ course.Name }}
+                </div>
+                <hr/>
+                <div class="row g-3 align-items-center">
+                    <div class="mb-3">
+                        <label for="rating" class="form-label">Rate Course out of 5 : </label>
+                        <input type="number" name="rating" class="form-control" value="{{ feedback_data.Rating }}" id="rating">
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <textarea class="form-control" name="desc" placeholder="Leave a comment here" id="desc"
+                                style="height: 100px">{{ feedback_data.Description }}
+                            </textarea>
+                            <label for="desc">Description </label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-outline-secondary ">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+                {% if status %}
+            </fieldset>
+            {% endif %}
+            </form>
+    </div>
+    
+</div>
+{% endblock body %}

@@ -1,0 +1,31 @@
+.QnA_name {
+  text-align: center;
+  font-size: 25px;
+  background: #669999;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  color: white;
+  border-radius: 10px;
+}
+
+.question_con {
+  margin-top: 20px;
+}
+.question_txt {
+  padding-top: 20px;
+  font-size: 30px;
+  line-height: 10px;
+}
+.question_ask_con {
+  background-color: #f7f7f7;
+  padding: 20px;
+  min-width: 70vw;
+  position: fixed;
+  bottom: 10px;
+  z-index: 10;
+}
+
+.question_card{
+  margin-bottom: 20px;
+}

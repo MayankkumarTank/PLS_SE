@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500;600;700;800;900&family=Roboto:wght@300;400;500;700;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  /* overflow-x: hidden;
+    overflow-y: hidden; */
+}
+
+.navbar-brand > img {
+  max-width: 200px;
+}
+
+.navbar-brand,
+.cover {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.nav-link {
+  color: black !important;
+}
+.nav-item {
+  margin-right: 20px;
+}
+
+.nav-link:hover {
+  color: #ff5455 !important;
+}
+
+.login__button {
+  margin-right: 30px;
+}
+.login > a {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.login-btn {
+  border-width: 2px;
+  border-color: teal;
+  color: teal;
+  border-radius: 17px;
+}
+
+.login-btn:hover {
+  color: white;
+  background: teal;
+}

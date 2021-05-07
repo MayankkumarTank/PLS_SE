@@ -1,0 +1,78 @@
+{% extends 'faculty/templates/start_base.html' %}
+{% load static %}
+{% block title %}
+Faculty | Dashboard
+{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/task_details.css' %}">
+{% endblock extra_css %}
+
+{% block nav_link %}
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'QNACourse' course.Id %}">Q&A Course</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link task" href="{% url 'tasks' course.Id %}">Tasks</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'resources' course.Id %}">Resources</a>
+</li>
+{% endblock nav_link %}
+
+{% block extrajs %}
+    $(".active").removeClass("active");
+    $(".task").addClass("active");     
+{% endblock extrajs %}
+
+{% block body %}
+<div class="task_details_con">
+    <div class="course_name">
+        {{ course.Id }}: {{ course.Name }}
+    </div>
+    <div class="whole_form">
+        {% if update %}
+        <form action="{% url 'UpdatetaskAfter' course.Id task.Id %}" method="POST">
+            {% else %}
+            <form action="{% url 'newtask' course.Id %}" method="POST">
+            {% endif %}
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="task_name" class="form-label">Task Name</label>
+                <input type="text" name="task_name" class="form-control" id="task_name" value="{{ task.Title }}">
+            </div>
+            <div class="mb-3">
+                <div class="form-floating">
+                    <textarea class="form-control" name="task_desc" placeholder="Leave a comment here" id="task_desc"
+                        style="height: 100px">{{ task.Content }}
+                    </textarea>
+                    <label for="task_desc">Task Description </label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-check-label deadline_css" for="exampleCheck1">Deadline</label>
+                <input type="datetime-local" id="deadline" name="deadline" value='{{ task.Deadline|time }}'>
+            </div>
+            <!-- <div class="mb-3">
+            <div class="form-check form-switch peer_mode">
+                <label class="form-check-label" for="peer_mode"
+                  >Peer Learning Mode</label>
+                <input class="form-check-input form-control" id="peer_mode" name="peer_mode" type="checkbox"{% if task.peer_mode %} checked="checked"{% endif %}/> 
+            </div>
+            </div> -->
+            <div class="mb-3">
+                <div class="form-check form-switch">
+                    <label class="form-check-label" for="peer_mode"
+                  >Peer Learning Mode</label>
+                <input class="form-check-input form-control" id="peer_mode" name="peer_mode" type="checkbox"{% if task.peer_mode %} checked="checked"{% endif %}/> 
+                  </div>
+            </div>
+            {% if update %}
+            <button type="submit" class="btn btn-primary">Update</button>
+            {% else %}
+            <button type="submit" class="btn btn-primary">Submit</button>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock body %}

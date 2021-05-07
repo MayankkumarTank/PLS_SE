@@ -1,0 +1,56 @@
+{% extends 'guest/templates/base.html' %}
+{% load static %}
+{% block title %}
+Welcome to PLS
+{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock extra_css %}
+
+{% block body %}
+{% if msg %}
+<div class="alert alert-warning alert-dismissible fade show " style="margin-left: 40px; margin-right: 40px;" role="alert">
+  <strong>{{title}} : </strong> {{msg}}
+</div>
+{% endif %}
+<div class="log_in_con">
+  <div class="row">
+    <div class="col-sm col-left">
+      <div class="home_img_con" data-aos="zoom-in">
+        <img src="{% static 'img/login.jpg' %}" alt="" srcset="">
+      </div>
+    </div>
+    <div class="col-sm col-right">
+      <div class="form_con" data-aos="fade-down">
+        <div class="login__text">
+          Login
+        </div>
+        <form accept="{% url 'login_page' %}" method="POST">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" name="emailId" class="form-control" id="exampleInputEmail1"
+              aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3">
+            <label for="selecter" class="form-label">Login as</label>
+            <select class="form-select " name="Role" aria-label="Default select example" id="selecter">
+              <option selected>Select</option>
+              <option value="Student" >Student</option>
+              <option value="Faculty">Faculty</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-outline-primary ">Login</button>
+          <button type="reset" class="btn btn-outline-primary ">cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}

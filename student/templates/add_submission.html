@@ -1,0 +1,59 @@
+{% extends 'faculty/templates/start_base.html' %}
+{% load static %}
+{% block title %}
+Faculty | Dashboard
+{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/add_submission.css' %}">
+{% endblock extra_css %}
+
+{% block nav_link %}
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'QNACourse' course.Id %}">Q&A Course</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'tasks' course.Id %}">Tasks</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'resources' course.Id %}">Resources</a>
+</li>
+{% endblock nav_link %}
+
+{% block body %}
+<div class="add_submission_con">
+    <div class="course_name">
+        {{ course.Id }}: {{ course.Name }}
+    </div>
+    <div class="whole_form">
+            <form action="{% url 'submitsubmission' course.Id task.Id %}" method="POST">
+            {% csrf_token %}
+            {% if status %}
+            <fieldset disabled="disabled">
+            {% endif %}
+            <div class="mb-3">
+                <label for="task_name" class="form-label">Task Name</label>
+                <input type="text" name="task_name" class="form-control" id="task_name" value="{{ task.Title }}" disabled>
+            </div>
+            <div class="mb-3">
+                <div class="form-floating">
+                    <textarea class="form-control" name="submission_desc" placeholder="Leave a comment here" id="submission_desc"
+                        style="height: 100px"> {{ obj.Content }}
+                    </textarea>
+                    <label for="submission_desc">Submission content </label>
+                </div>
+            </div>
+            {% if obj.Status == True %}
+            <div class="mb-3">
+                <label for="grade" class="form-label">Grade</label>
+                <input type="text" name="grade" class="form-control" id="grade" value="{{ obj.Grade }}" disabled>
+            </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary">Submit</button>
+            {% if status %}
+            </fieldset>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% endblock body %}

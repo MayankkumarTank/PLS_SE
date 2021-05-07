@@ -1,0 +1,89 @@
+{% extends 'faculty/templates/start_base.html' %}
+{% load static %}
+{% block title %}
+Faculty | Dashboard
+{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/Grade_submission.css' %}">
+{% endblock extra_css %}
+
+{% block nav_link %}
+<li class="nav-item">
+    <a class="nav-link qnacourse" href="{% url 'QNACourse' course.Id %}">Q&A Course</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link task" href="{% url 'tasks' course.Id %}">Tasks</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link resource" href="{% url 'resources' course.Id %}">Resources</a>
+</li>
+{% endblock nav_link %}
+
+{% block extrajs %}
+    $(".active").removeClass("active");
+    $(".task").addClass("active");     
+{% endblock extrajs %}
+
+{% block body %}
+<div class="tasks_con">
+    <div class="course_name">
+        {{ course.Id }}: {{ course.Name }}
+    </div>
+    <div class="submission_text_con">
+        <div class="submission_txt">
+            Submission Details
+        </div>
+        <hr />
+        <div class="student_name">
+            Student Name : {{ submissions.Student_Id.First_Name}} {{submissions.Student_Id.Last_Name}}
+        </div>
+        <div class="content">
+            Content : {{submissions.Content}}
+        </div>
+        <div class="time">
+            Submission Time : {{submissions.Timestamp}}
+        </div>
+        {% if request.session.faculty %}
+        <form action="{% url 'UpdateGrade' course.Id task_id submissions.id  %}" method="POST" class="grade_form">
+        {% elif request.session.student %}
+        <form action="{% url 'addcomment' course.Id task_id submissions.id %}" method="POST" class="grade_form">
+        {% endif %}
+            {% csrf_token %}
+            {% if request.session.faculty %}
+            <div class="mb-3">
+                <label for="task_name" class="form-label">Enter Grade : </label>
+                <input type="text" name="grade" class="form-control" value="{{ submissions.Grade }}" id="grade">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Upload Grade</button>
+            {% endif %}
+            {% if request.session.student %}
+            <div class="mb-3">
+                <label for="task_name" class="form-label">Comment : </label>
+                <input type="text" name="comment" class="form-control" id="comment">
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Add Comment</button>
+            {% endif %}
+        </form>
+    </div>
+    <div class="question_con">
+        <div class="question_txt">
+            Latest Comments
+        </div>
+        <hr />
+        <div class="question_list">
+            {% for comment in comments %}
+            <div class="card comment_card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ comment.Content }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ comment.Student_Id.First_Name }} {{ comment.Student_Id.Last_Name }}</h6>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock body %}

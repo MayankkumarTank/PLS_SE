@@ -1,0 +1,18 @@
+.my_profile {
+    text-align: center;
+    font-size: 25px;
+    background: #669999;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    color: white;
+    border-radius: 10px;
+  }
+
+.profile_data_con {
+    font-size: 25px;
+    background-color: #f7f7f7;
+    padding:20px;
+    margin: 20px;
+    border-radius: 10px;
+}

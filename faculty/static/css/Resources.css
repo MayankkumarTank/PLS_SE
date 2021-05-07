@@ -1,0 +1,39 @@
+.course_name {
+    text-align: center;
+    font-size: 25px;
+    background: #669999;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    color: white;
+    border-radius: 10px;
+  }
+  .task_txt,
+  .task_add_txt {
+    padding-top: 30px;
+    font-size: 30px;
+    line-height: 10px;
+  }
+  .all_tasks {
+    padding: 20px;
+  }
+  .card {
+    max-width: 25vw !important;
+    text-decoration: none !important;
+    color: black;
+    transition: all 0.2s ease-in;
+    margin-right: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .card:hover {
+    color: black;
+    transform: scale(1.03);
+    background: #669999;
+    color: white;
+  }
+  .add_task {
+    margin-right: 20px;
+  }
+  

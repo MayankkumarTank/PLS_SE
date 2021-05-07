@@ -1,0 +1,72 @@
+{% extends 'faculty/templates/start_base.html' %}
+{% load static %}
+{% block title %}
+Faculty | Dashboard
+{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/course.css' %}">
+{% endblock extra_css %}
+
+{% block nav_link %}
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'QNACourse' course.Id %}">Q&A Course</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'tasks' course.Id %}">Tasks</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'resources' course.Id %}">Resources</a>
+</li>
+{% endblock nav_link %}
+
+{% block body %}
+<div class="course_con">
+    <div class="course_name">
+        {{ course.Id }}: {{ course.Name }}
+    </div>
+    <div class="course_con">
+        <div class="course_txt">
+            Course Description
+        </div>
+        <hr />
+        <div class="courses_desc ">
+            {{ course.Discription }}
+        </div>
+        <div class="course_activity_txt">
+            Course Activity
+        </div>
+        <hr />
+        <div class="activity__button row row-cols-3">
+            <a class="card" href="{% url 'tasks' course.Id %}">
+                <div class="card-body">
+                    <h5 class="card-title">Tasks</h5>
+                </div>
+            </a>
+            <a class="card" href="{% url 'resources' course.Id %}">
+                <div class="card-body">
+                    <h5 class="card-title">Resources</h5>
+                </div>
+            </a>
+            <a class="card" href="{% url 'QNACourse' course.Id %}">
+                <div class="card-body">
+                    <h5 class="card-title">Q&A Course Wise</h5>
+                </div>
+            </a>
+            {% if request.session.student %}
+            <a class="card" href="{% url 'facultyfeedback' course.Id %}">
+                <div class="card-body">
+                    <h5 class="card-title">Faculty Feedback</h5>
+                </div>
+            </a>
+            <a class=" card" href="{% url 'coursefeedback' course.Id %}">
+                <div class="card-body">
+                    <h5 class="card-title">Course Feedback</h5>
+                </div>
+            </a>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+{% endblock body %}

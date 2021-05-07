@@ -1,0 +1,25 @@
+.question {
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 15px;
+}
+.card {
+  margin-bottom: 10px;
+}
+
+.answer_con {
+  background-color: #f7f7f7;
+  padding: 20px;
+  min-width: 70vw;
+  position: fixed;
+  bottom: 10px;
+  z-index: 10;
+}
+.col-sm-right {
+  overflow-y: scroll !important;
+}
+.delete_question{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}

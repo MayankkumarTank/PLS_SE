@@ -1,0 +1,16 @@
+{% extends 'guest/templates/base.html' %}
+{% load static %}
+{% block title %}
+{{ school }}
+{% endblock title %}
+
+{% block body %}
+<div class="hero-card">
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">{{ course_name }}</h1>
+<!--        <p class="lead">{{ description }}</p>-->
+      </div>
+    </div>
+</div>
+{% endblock body %}

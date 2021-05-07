@@ -1,0 +1,60 @@
+{% extends 'faculty/templates/start_base.html' %}
+{% load static %}
+{% block title %}
+Faculty | Dashboard
+{% endblock title %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/task_details.css' %}">
+{% endblock extra_css %}
+
+{% block nav_link %}
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'QNACourse' course.Id %}">Q&A Course</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{% url 'tasks' course.Id %}">Tasks</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link resource" href="{% url 'resources' course.Id %}">Resources</a>
+</li>
+{% endblock nav_link %}
+
+{% block extrajs %}
+    $(".active").removeClass("active");
+    $(".resource").addClass("active");     
+{% endblock extrajs %}
+
+{% block body %}
+<div class="task_details_con">
+    <div class="course_name">
+        {{ course.Id }}: {{ course.Name }}
+    </div>
+    <div class="whole_form">
+        {% if update %}
+        <form action="{% url 'UpdateResourcesAfter' course.Id resource.Id %}" method="POST">
+            {% else %}
+            <form action="{% url 'newresource' course.Id %}" method="POST">
+                {% endif %}
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="task_name" class="form-label">Resource Title</label>
+                    <input type="text" name="ResourceName" class="form-control" value="{{ resource.Title }}"
+                        id="ResourceName">
+                </div>
+                <div class="mb-3">
+                    <div class="form-floating">
+                        <textarea class="form-control" name="resource_desc" placeholder="Leave a comment here"
+                            id="resource_desc" style="height: 100px">{{ resource.Content }}</textarea>
+                        <label for="task_desc">Resource Content </label>
+                    </div>
+                </div>
+                {% if update %}
+                <button type="submit" class="btn btn-primary">Update</button>
+                {% else %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+                {% endif %}
+            </form>
+    </div>
+</div>
+{% endblock body %}
