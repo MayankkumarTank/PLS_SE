@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
-from .models import Student,Admin,Faculty
+from .models import Student,Admin,Faculty,School,Programme,Major
 # Create your views here.
 def home_page(request):
     return render(request, 'guest/templates/home.html')
@@ -65,24 +65,28 @@ def Logout(request):
     return redirect('home_page')
 
 def school(request, s_name):
-    chemical = ['Course1', 'Course2', 'Course3']
-    mechanical = ['Course4', 'Course5']
-    computer = ['Course6', 'Course7', 'Course8', 'Course9']
-    if s_name == "SEAS":
-        context = {
-            'school': "School of Engineering and Applied Science",
-            'description': "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-            'programs': {
-                'Chemical': chemical,
-                'Computer Science': computer,
-                'Mechanical': mechanical,
-            },
-        }
-        return render(request, 'guest/templates/school.html', context)
-    elif s_name == "SCS":
-        return HttpResponse("We have got"+s_name)
-    else:
-        return HttpResponse("Ooooo  we got the wrong ", s_name)
+    chemical = ['Org', 'Norg']
+    mechanical = ['FM', 'TH']
+    computer = ['DSP', 'ML']
+    school = School.objects.get(Id="SC1")
+    programmes = Programme.objects.filter(School_Id=school)
+    
+    # for programme in programmes:
+    #     majors = Major.objects.filter(Programme_Id = programme)
+    #     major_course = []
+    #     for major in majors:
+    #         courses = Course.objects.filter(School_Id=school,Programme_Id = programme, Major_id=major)
+    #         major_course.append{'Courses':courses,'Majors':major}
+
+    context = {
+        'school': school,
+        'programs': {
+            'Chemical': chemical,
+            'Computer Science': computer,
+            'Mechanical': mechanical,
+        },
+    }
+    return render(request, 'guest/templates/school.html', context)
 
 def course(request, course):
     course_name = course

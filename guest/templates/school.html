@@ -12,8 +12,8 @@
 <div class="hero-card" data-aos="zoom-in">
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4">{{ school }}</h1>
-      <p class="lead">{{ description }}</p>
+      <h1 class="display-4">{{ school.Name }}</h1>
+      <p class="lead">{{ school.Description }}</p>
     </div>
   </div>
 </div>
@@ -41,8 +41,7 @@
           <div class="card inner-card" style="width: 100%">
             <div class="card-body">
               <h5 class="card-title">{{ course }}</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
+              <p class="card-text">Not added.</p>
               {# You need to give {{course}} to course_page url in bellow line #}
               <a href="{% url 'course_page' '{{course}}' %}" class="card-link">Open Outline</a>
             </div>

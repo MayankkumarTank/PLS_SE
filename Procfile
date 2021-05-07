@@ -1,0 +1,1 @@
+web: gunicorn PLS_SE.wsgi --log-file -
