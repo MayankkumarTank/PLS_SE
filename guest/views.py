@@ -1,10 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from .models import Student,Admin,Faculty,School,Programme,Major
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 def home_page(request):
     return render(request, 'guest/templates/home.html')
 
+@csrf_exempt
 def login_page(request):
     if request.method=='POST':
         email=request.POST.get('emailId')
